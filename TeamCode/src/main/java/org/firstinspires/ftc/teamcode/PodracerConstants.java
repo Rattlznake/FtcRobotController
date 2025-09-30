@@ -32,7 +32,8 @@ public class PodracerConstants {
                 stringBuffer = new StringBuffer();
                 continue;
             }
-            if (currentChar == constantSeparatorCharacter || i == input.length()-1) {
+            if (currentChar == constantSeparatorCharacter || i == input.length() - 1) {
+                if (i == input.length() - 1) stringBuffer.append(currentChar);
                 output.values.add(stringBuffer.toString());
                 stringBuffer = new StringBuffer();
                 continue;
