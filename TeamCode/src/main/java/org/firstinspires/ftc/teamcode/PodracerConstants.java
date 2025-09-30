@@ -15,6 +15,7 @@ public class PodracerConstants {
         }
     }
 
+    // TODO: Functional? Test it!
     ConstantTable constantTableFromString(String input) {
         ConstantTable output = new ConstantTable();
 
@@ -31,7 +32,7 @@ public class PodracerConstants {
                 stringBuffer = new StringBuffer();
                 continue;
             }
-            if (currentChar == constantSeparatorCharacter) {
+            if (currentChar == constantSeparatorCharacter || i == input.length()-1) {
                 output.values.add(stringBuffer.toString());
                 stringBuffer = new StringBuffer();
                 continue;
@@ -39,13 +40,17 @@ public class PodracerConstants {
 
             stringBuffer.append(currentChar);
         }
+
+        return output;
     }
 
+    // TODO: Implement me
     void setPodracerConstant(String fileName) {
 
     }
 
+    // TODO: Implement me
     String getPodracerConstant(String fileName) {
-
+        return "";
     }
 }
