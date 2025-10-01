@@ -1,57 +1,34 @@
 package org.firstinspires.ftc.teamcode;
 
-import java.util.ArrayList;
+import java.io.File;
 
 public class PodracerConstants {
-    private String constantFileName = "podracerConstants.txt";
 
-    class ConstantTable {
-        ArrayList<String> keys;
-        ArrayList<String> values;
+    private final File constantsFile;
+    private final ConstantsTable constantsTable;
 
-        ConstantTable() {
-            keys = new ArrayList<String>();
-            values = new ArrayList<String>();
-        }
+    public PodracerConstants(File constantsFile) {
+        this.constantsFile = constantsFile;
+        constantsTable = ConstantsTable.constantTableFromFile(constantsFile);
+
+        if (constantsTable.isEmpty()) initConstants();
     }
 
-    // TODO: Functional? Test it!
-    ConstantTable constantTableFromString(String input) {
-        ConstantTable output = new ConstantTable();
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        char keySeparatorCharacter = ':';
-        char constantSeparatorCharacter = ',';
-
-        for (int i = 0; i < input.length(); i++) {
-            char currentChar = input.charAt(i);
-
-            if (currentChar == keySeparatorCharacter) {
-                output.keys.add(stringBuffer.toString());
-                stringBuffer = new StringBuffer();
-                continue;
-            }
-            if (currentChar == constantSeparatorCharacter || i == input.length() - 1) {
-                if (i == input.length() - 1) stringBuffer.append(currentChar);
-                output.values.add(stringBuffer.toString());
-                stringBuffer = new StringBuffer();
-                continue;
-            }
-
-            stringBuffer.append(currentChar);
-        }
-
-        return output;
+    void setPodracerConstant(String key, String value) {
+        constantsTable.set(key, value);
     }
 
-    // TODO: Implement me
-    void setPodracerConstant(String fileName) {
-
+    String getPodracerConstant(String constantName) {
+        return constantsTable.get(constantName);
     }
 
-    // TODO: Implement me
-    String getPodracerConstant(String fileName) {
-        return "";
+    void saveConstants() {
+        constantsTable.writeToFile(constantsFile);
+    }
+
+    // Be careful with this! This will overwrite the data in the constants table
+    void initConstants() {
+        constantsTable.set("leftModifier","1");
+        constantsTable.set("rightModifier","1");
     }
 }
